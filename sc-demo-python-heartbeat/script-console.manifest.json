@@ -1,0 +1,65 @@
+{
+  "id": "sc-demo-python-heartbeat",
+  "name": "Python Heartbeat Demo",
+  "description": "持续写入 heartbeat 与日志的 Python 示例脚本",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "python",
+  "entry": {
+    "command": "python",
+    "args": [
+      "main.py"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "heartbeat-file",
+        "severity": "advisory",
+        "path": "runtime/heartbeat.json",
+        "staleAfterSeconds": 45
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "display": {
+    "category": "监控守护",
+    "tags": [
+      "demo",
+      "python",
+      "monitor"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": true,
+    "allowVisible": true,
+    "restartPolicy": "on-crash"
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ]
+}

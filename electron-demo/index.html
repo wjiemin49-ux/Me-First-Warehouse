@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electron 示例应用</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+    h1 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+    }
+    p {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #2980b9;
+    }
+    .status {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #ecf0f1;
+      border-radius: 4px;
+      border-left: 4px solid #3498db;
+    }
+    .file-info {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #e8f4f8;
+      border-radius: 4px;
+      border-left: 4px solid #1abc9c;
+    }
+    code {
+      background-color: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Electron 示例应用</h1>
+    
+    <p>这是一个使用 Electron 构建的桌面应用示例，展示了以下功能：</p>
+    
+    <ul>
+      <li>基本的窗口创建和管理</li>
+      <li>应用菜单系统</li>
+      <li>文件对话框</li>
+      <li>主进程与渲染进程通信</li>
+      <li>跨平台兼容性</li>
+    </ul>
+    
+    <button class="btn" onclick="sendMessage()">测试 IPC 通信</button>
+    
+    <div class="status" id="status">
+      <p>状态：就绪</p>
+    </div>
+    
+    <div class="file-info" id="fileInfo" style="display: none;">
+      <h3>已打开的文件：</h3>
+      <p id="filePath"></p>
+    </div>
+    
+    <h3>技术特点</h3>
+    <ul>
+      <li>使用 <code>electron</code> 框架构建</li>
+      <li>基于 Chromium 渲染引擎</li>
+      <li>集成 Node.js 运行时</li>
+      <li>支持 Windows、macOS 和 Linux</li>
+      <li>使用 Web 技术（HTML、CSS、JavaScript）开发</li>
+    </ul>
+  </div>
+
+  <script>
+    // 测试 IPC 通信
+    function sendMessage() {
+      const status = document.getElementById('status');
+      status.innerHTML = '<p>状态：发送消息中...</p>';
+      
+      window.electronAPI.sendPing();
+    }
+    
+    // 监听主进程的响应
+    window.electronAPI.onPong((message) => {
+      const status = document.getElementById('status');
+      status.innerHTML = `<p>状态：收到响应</p><p>消息：${message}</p>`;
+    });
+    
+    // 监听文件打开事件
+    window.electronAPI.onFileOpened((filePath) => {
+      const fileInfo = document.getElementById('fileInfo');
+      const filePathEl = document.getElementById('filePath');
+      
+      fileInfo.style.display = 'block';
+      filePathEl.textContent = filePath;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+# 扫描目录配置
+# 支持 {username} 占位符，会自动替换为当前用户名
+scan_directories:
+  downloads:
+    path: "C:\\Users\\{username}\\Downloads"
+    recursive: false
+
+  screenshots:
+    path: "C:\\Users\\{username}\\Pictures\\Screenshots"
+    recursive: false
+
+  desktop:
+    path: "C:\\Users\\{username}\\Desktop"
+    recursive: false
+
+  documents:
+    path: "C:\\Users\\{username}\\Documents"
+    recursive: true
+    max_depth: 2
+
+  projects:
+    path: "D:\\projects"
+    recursive: true
+    max_depth: 3
+
+  study:
+    path: "D:\\study"
+    recursive: true
+    max_depth: 2
+
+# 排除模式
+exclude_patterns:
+  directories:
+    - ".git"
+    - "node_modules"
+    - "__pycache__"
+    - ".venv"
+    - "venv"
+    - "build"
+    - "dist"
+    - ".idea"
+    - ".vscode"
+    - "temp"
+    - "tmp"
+  files:
+    - "*.tmp"
+    - "*.log"
+    - "*.cache"
+    - "Thumbs.db"
+    - ".DS_Store"
+    - "desktop.ini"
+
+# 报告配置
+report:
+  output_dir: "./output"
+  format: "markdown"  # markdown, text, console
+  top_n: 10
+  timezone: "Asia/Shanghai"
+
+# 日志配置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_dir: "./logs"

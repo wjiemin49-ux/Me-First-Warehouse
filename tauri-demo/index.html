@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri 示例应用</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f5f5f5;
+        color: #333;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+      }
+      h1 {
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+      p {
+        line-height: 1.6;
+        margin-bottom: 20px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+      .btn:hover {
+        background-color: #2980b9;
+      }
+      .status {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #ecf0f1;
+        border-radius: 4px;
+        border-left: 4px solid #3498db;
+      }
+      .file-info {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e8f4f8;
+        border-radius: 4px;
+        border-left: 4px solid #1abc9c;
+      }
+      code {
+        background-color: #f8f9fa;
+        padding: 2px 4px;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+      }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-top: 30px;
+      }
+      .feature-card {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e9ecef;
+      }
+      .feature-card h3 {
+        color: #3498db;
+        margin-top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Tauri 示例应用</h1>
+      
+      <p>这是一个使用 Tauri 构建的桌面应用示例，展示了以下功能：</p>
+      
+      <ul>
+        <li>基本的窗口创建和管理</li>
+        <li>文件对话框</li>
+        <li>主进程与渲染进程通信</li>
+        <li>轻量级应用构建</li>
+        <li>跨平台兼容性</li>
+      </ul>
+      
+      <button class="btn" onclick="testIPC()">测试 IPC 通信</button>
+      <button class="btn" onclick="openFile()" style="margin-left: 10px;">打开文件</button>
+      
+      <div class="status" id="status">
+        <p>状态：就绪</p>
+      </div>
+      
+      <div class="file-info" id="fileInfo" style="display: none;">
+        <h3>已打开的文件：</h3>
+        <p id="filePath"></p>
+      </div>
+      
+      <div class="features">
+        <div class="feature-card">
+          <h3>轻量级</h3>
+          <p>应用体积小，启动速度快，内存占用低</p>
+        </div>
+        <div class="feature-card">
+          <h3>安全性</h3>
+          <p>基于 Rust 语言，内存安全，漏洞少</p>
+        </div>
+        <div class="feature-card">
+          <h3>高性能</h3>
+          <p>Rust 后端提供优秀的性能表现</p>
+        </div>
+        <div class="feature-card">
+          <h3>跨平台</h3>
+          <p>支持 Windows、macOS 和 Linux</p>
+        </div>
+      </div>
+      
+      <h3>技术特点</h3>
+      <ul>
+        <li>使用 <code>Rust</code> 作为后端</li>
+        <li>使用系统 <code>WebView</code> 作为前端</li>
+        <li>支持任何前端框架</li>
+        <li>应用体积小（几 MB）</li>
+        <li>启动速度快</li>
+      </ul>
+    </div>
+    
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

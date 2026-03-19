@@ -1,0 +1,275 @@
+QWidget#AppRoot {
+  background-color: #0d1421;
+  background-image: qlineargradient(
+    x1: 0, y1: 0, x2: 1, y2: 1,
+    stop: 0 #10192a,
+    stop: 0.45 #0f1a2d,
+    stop: 1 #0b121e
+  );
+  color: #e8edf8;
+  font-family: "Microsoft YaHei UI", "Segoe UI";
+}
+
+QFrame#HeaderCard,
+QFrame#MetricCard,
+QFrame#PanelCard,
+QFrame#HistoryHeaderCard,
+QFrame#TrendHeaderCard,
+QFrame#TrendCanvasCard,
+QFrame#SettingsCard,
+QFrame#PlaceholderPanel {
+  background-color: rgba(22, 33, 52, 0.92);
+  border: 1px solid rgba(80, 116, 175, 0.35);
+  border-radius: 16px;
+}
+
+QLabel#WindowTitleLabel {
+  color: #f6f9ff;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+QLabel#WindowSubtitleLabel {
+  color: #96aacf;
+  font-size: 13px;
+}
+
+QLabel#ThemeBadgeLabel {
+  color: #d3e4ff;
+  border: 1px solid rgba(118, 161, 234, 0.58);
+  border-radius: 10px;
+  background-color: rgba(37, 61, 100, 0.78);
+  padding: 3px 10px;
+  font-size: 12px;
+}
+
+QLabel#MetricTitleLabel {
+  color: #8ea7d0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+QLabel#MetricValueLabel {
+  color: #f3f7ff;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+QLabel#MetricHelperLabel {
+  color: #8ba0c5;
+  font-size: 12px;
+}
+
+QLabel#SectionTitleLabel {
+  color: #f1f6ff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+QLabel#TimerDisplayLabel {
+  color: #9cc4ff;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+QLabel#TimerStatusLabel {
+  color: #9db2d5;
+  font-size: 13px;
+}
+
+QLabel#BodyMutedLabel {
+  color: #9fb1cc;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+QLabel#PlaceholderTitleLabel {
+  color: #f1f6ff;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+QLabel#PlaceholderDescriptionLabel {
+  color: #8ea3c7;
+  font-size: 13px;
+}
+
+QPushButton {
+  border-radius: 11px;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  min-height: 34px;
+}
+
+QPushButton#PrimaryButton {
+  background-color: #2f74ea;
+  border: 1px solid #4387f0;
+  color: #f8fbff;
+}
+
+QPushButton#PrimaryButton:hover {
+  background-color: #3f82f1;
+}
+
+QPushButton#PrimaryButton:pressed {
+  background-color: #2363d3;
+}
+
+QPushButton#SecondaryButton {
+  background-color: rgba(36, 54, 84, 0.82);
+  border: 1px solid rgba(114, 148, 211, 0.62);
+  color: #dce9ff;
+}
+
+QPushButton#SecondaryButton:hover {
+  background-color: rgba(52, 75, 114, 0.95);
+}
+
+QPushButton#SecondaryButton:pressed {
+  background-color: rgba(28, 44, 72, 0.95);
+}
+
+QPushButton#DangerButton {
+  background-color: rgba(129, 47, 61, 0.9);
+  border: 1px solid rgba(194, 90, 112, 0.95);
+  color: #ffe8ec;
+  padding: 6px 10px;
+}
+
+QPushButton#DangerButton:hover {
+  background-color: rgba(157, 60, 76, 0.95);
+}
+
+QPushButton#DangerButton:pressed {
+  background-color: rgba(109, 39, 52, 0.95);
+}
+
+QPushButton:disabled {
+  background-color: rgba(90, 102, 126, 0.44);
+  border: 1px solid rgba(118, 126, 142, 0.4);
+  color: #7f8ea8;
+}
+
+QTableWidget#HistoryTable {
+  background-color: rgba(17, 28, 44, 0.92);
+  alternate-background-color: rgba(21, 33, 53, 0.9);
+  border: 1px solid rgba(81, 113, 166, 0.45);
+  border-radius: 10px;
+  gridline-color: rgba(86, 116, 166, 0.35);
+  color: #dce8ff;
+  selection-background-color: rgba(62, 96, 151, 0.75);
+  selection-color: #f5f9ff;
+}
+
+QTableWidget#HistoryTable QHeaderView::section {
+  background-color: rgba(42, 63, 96, 0.92);
+  color: #cadcff;
+  border: none;
+  border-right: 1px solid rgba(90, 124, 177, 0.4);
+  border-bottom: 1px solid rgba(94, 128, 183, 0.4);
+  padding: 8px;
+  font-weight: 600;
+}
+
+QTableWidget#HistoryTable::item {
+  padding: 6px;
+}
+
+QScrollBar:vertical {
+  border: none;
+  background: rgba(20, 32, 52, 0.7);
+  width: 12px;
+  margin: 2px 0 2px 0;
+  border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+  background: rgba(98, 130, 180, 0.78);
+  min-height: 22px;
+  border-radius: 6px;
+}
+
+QScrollBar::handle:vertical:hover {
+  background: rgba(117, 149, 200, 0.86);
+}
+
+QScrollBar::add-line:vertical,
+QScrollBar::sub-line:vertical {
+  height: 0px;
+}
+
+QLabel#HistoryStatusLabel {
+  color: #9bb2d6;
+  font-size: 12px;
+}
+
+QLabel#TrendSummaryLabel {
+  color: #a7bedf;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+QLabel#TrendStatusLabel {
+  color: #93abcf;
+  font-size: 12px;
+}
+
+QLabel#SettingsStatusLabel {
+  color: #9bb2d6;
+  font-size: 12px;
+}
+
+QComboBox,
+QDoubleSpinBox,
+QTimeEdit {
+  background-color: rgba(18, 30, 48, 0.95);
+  color: #dbe8ff;
+  border: 1px solid rgba(91, 123, 176, 0.65);
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+
+QComboBox:focus,
+QDoubleSpinBox:focus,
+QTimeEdit:focus {
+  border: 1px solid rgba(135, 179, 247, 0.95);
+}
+
+QComboBox::drop-down {
+  border: none;
+}
+
+QCheckBox {
+  color: #c8d7f2;
+}
+
+QTabWidget#MainTabs::pane {
+  border: 1px solid rgba(86, 119, 175, 0.34);
+  border-radius: 12px;
+  background: rgba(19, 31, 49, 0.9);
+  margin-top: 8px;
+}
+
+QTabWidget#MainTabs QTabBar::tab {
+  background: rgba(27, 41, 63, 0.78);
+  border: 1px solid rgba(70, 101, 154, 0.45);
+  border-bottom: none;
+  color: #89a5d1;
+  min-width: 120px;
+  padding: 9px 14px;
+  margin-right: 6px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+QTabWidget#MainTabs QTabBar::tab:selected {
+  background: rgba(47, 82, 141, 0.92);
+  color: #f2f7ff;
+  border-color: rgba(108, 152, 224, 0.8);
+}
+
+QTabWidget#MainTabs QTabBar::tab:hover:!selected {
+  background: rgba(37, 58, 89, 0.9);
+}

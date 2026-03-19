@@ -1,0 +1,66 @@
+{
+  "id": "sc-demo-batch-loop",
+  "name": "Batch Loop Demo",
+  "description": "bat/cmd 心跳示例",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "bat",
+  "entry": {
+    "command": "cmd",
+    "args": [
+      "/c",
+      "run.bat"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "heartbeat-file",
+        "severity": "advisory",
+        "path": "runtime/heartbeat.json",
+        "staleAfterSeconds": 45
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "display": {
+    "category": "定时自动化",
+    "tags": [
+      "demo",
+      "bat",
+      "automation"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": false,
+    "allowVisible": true,
+    "restartPolicy": "off"
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ]
+}

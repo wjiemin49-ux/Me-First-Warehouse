@@ -1,0 +1,100 @@
+{
+  "id": "sample-script",
+  "name": "示例脚本",
+  "description": "这是一个通过接入向导创建的标准化脚本",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "python",
+  "entry": {
+    "command": "python",
+    "args": [
+      "main.py"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "startCommand": "python main.py",
+  "healthCheck": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "heartbeat-file",
+        "severity": "advisory",
+        "path": "runtime/heartbeat.json",
+        "staleAfterSeconds": 45
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "logPath": "logs/app.log",
+  "tags": [
+    "demo",
+    "template"
+  ],
+  "category": "未分类",
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "heartbeat-file",
+        "severity": "advisory",
+        "path": "runtime/heartbeat.json",
+        "staleAfterSeconds": 45
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "display": {
+    "category": "未分类",
+    "tags": [
+      "demo",
+      "template"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": false,
+    "allowVisible": true,
+    "restartPolicy": "off"
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ],
+  "exitCodeMap": {
+    "0": "正常结束",
+    "2": "配置错误",
+    "3": "依赖缺失",
+    "4": "启动失败",
+    "5": "健康初始化失败",
+    "10": "业务 fatal"
+  }
+}

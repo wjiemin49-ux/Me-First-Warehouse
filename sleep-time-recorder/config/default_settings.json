@@ -1,0 +1,9 @@
+{
+  "theme": "light",
+  "daily_sleep_goal_hours": 8.0,
+  "notifications_enabled": true,
+  "reminder_time": "22:30",
+  "minimize_to_tray": true,
+  "auto_start_timer_on_launch": false,
+  "database_path": "sleep_records.db"
+}

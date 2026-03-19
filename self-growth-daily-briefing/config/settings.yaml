@@ -1,0 +1,7 @@
+timezone: Asia/Shanghai
+send_time: "09:00"
+output_language: zh-CN
+article_length: "1200-1800"
+max_candidates: 12
+fallback_window_hours: 72
+dedupe_days: 7

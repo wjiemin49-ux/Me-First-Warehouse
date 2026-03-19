@@ -1,0 +1,93 @@
+{
+  "name": "script-console",
+  "version": "1.0.0",
+  "description": "Local offline script control center for Windows",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "npm-run-all -p dev:renderer dev:main dev:electron",
+    "dev:renderer": "vite",
+    "dev:main": "tsup --watch",
+    "dev:electron": "wait-on tcp:5173 file:dist-electron/main.js && cross-env ELECTRON_RUN_AS_NODE= VITE_DEV_SERVER_URL=http://127.0.0.1:5173 electron .",
+    "build": "npm-run-all build:renderer build:main",
+    "build:renderer": "vite build",
+    "build:main": "tsup",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
+    "test": "vitest run",
+    "package": "npm-run-all build test && electron-builder --win nsis portable",
+    "package:dir": "npm run build && electron-builder --dir",
+    "start": "cross-env ELECTRON_RUN_AS_NODE= electron ."
+  },
+  "keywords": [
+    "electron",
+    "react",
+    "desktop",
+    "windows",
+    "offline",
+    "script-console"
+  ],
+  "author": "OpenAI Codex",
+  "license": "MIT",
+  "type": "commonjs",
+  "dependencies": {
+    "@tanstack/react-query": "^5.91.0",
+    "@tanstack/react-table": "^8.21.3",
+    "@tanstack/react-virtual": "^3.13.23",
+    "chokidar": "^5.0.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.20",
+    "echarts": "^6.0.0",
+    "echarts-for-react": "^3.0.6",
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-hot-toast": "^2.6.0",
+    "react-router-dom": "^7.13.1",
+    "zod": "^4.3.6",
+    "zustand": "^5.0.12"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
+    "cross-env": "^10.1.0",
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1",
+    "jsdom": "^29.0.0",
+    "npm-run-all": "^4.1.5",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3",
+    "vite": "^8.0.1",
+    "vitest": "^4.1.0",
+    "wait-on": "^9.0.4"
+  },
+  "build": {
+    "appId": "com.local.scriptconsole",
+    "productName": "Script Console",
+    "files": [
+      "dist/**",
+      "dist-electron/**",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "build",
+      "output": "C:\\Users\\MACHENIKE\\AppData\\Local\\ScriptConsoleBuild"
+    },
+    "asar": true,
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

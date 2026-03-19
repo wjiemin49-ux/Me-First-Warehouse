@@ -1,0 +1,116 @@
+{
+  "id": "sc-demo-node-http",
+  "name": "Node Local Service Demo",
+  "description": "带本地 HTTP 健康检查的 Node 服务示例",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "node",
+  "entry": {
+    "command": "node",
+    "args": [
+      "index.js"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "startCommand": "node index.js",
+  "healthCheck": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "http",
+        "severity": "required",
+        "url": "http://127.0.0.1:43101/health",
+        "expectedStatus": 200
+      },
+      {
+        "type": "port",
+        "severity": "advisory",
+        "port": 43101,
+        "host": "127.0.0.1"
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "logPath": "logs/app.log",
+  "tags": [
+    "demo",
+    "node",
+    "service",
+    "http"
+  ],
+  "category": "本地服务",
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "http",
+        "severity": "required",
+        "url": "http://127.0.0.1:43101/health",
+        "expectedStatus": 200
+      },
+      {
+        "type": "port",
+        "severity": "advisory",
+        "port": 43101,
+        "host": "127.0.0.1"
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "display": {
+    "category": "本地服务",
+    "tags": [
+      "demo",
+      "node",
+      "service",
+      "http"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": false,
+    "allowVisible": true,
+    "restartPolicy": "off"
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ],
+  "exitCodeMap": {
+    "0": "正常结束",
+    "2": "配置错误",
+    "3": "依赖缺失",
+    "4": "启动失败",
+    "5": "健康初始化失败",
+    "10": "业务 fatal"
+  }
+}

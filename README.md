@@ -1,21 +1,160 @@
-# Me-First-Warehouse
+# 桌面应用开发技术展示
 
-This repository has been initialized with a minimal first commit.
+本项目展示了三种主流的桌面应用开发技术：Electron、Tauri 和 Qt，通过示例应用演示了它们的基本功能和开发流程。
 
-Right now it is intentionally neutral: no application scaffold, no framework lock-in, and no assumptions about the final stack. That keeps the repository ready for the real project code without adding throwaway boilerplate.
+## 技术对比
 
-## What is included
+### Electron
+- **基于**：Chromium 和 Node.js
+- **开发语言**：HTML、CSS、JavaScript
+- **应用体积**：较大（50MB+）
+- **启动速度**：较慢
+- **内存占用**：高
+- **开发效率**：高
+- **性能**：中
+- **适用场景**：快速开发、Web 技术迁移、跨平台一致性要求
 
-- `README.md` for project context and next-step notes
-- `.gitignore` for common local, generated, and secret-adjacent files
+### Tauri
+- **基于**：Rust 和系统 WebView
+- **开发语言**：Rust（后端）、HTML/CSS/JS（前端）
+- **应用体积**：小（2-10MB）
+- **启动速度**：快
+- **内存占用**：低
+- **开发效率**：中
+- **性能**：高
+- **适用场景**：轻量级应用、高性能要求、安全性要求
 
-## Suggested next steps
+### Qt
+- **基于**：C++ 和 Qt 框架
+- **开发语言**：C++（也支持 Python、JavaScript 等）
+- **应用体积**：中（10-30MB）
+- **启动速度**：快
+- **内存占用**：中
+- **开发效率**：低
+- **性能**：高
+- **适用场景**：原生体验、复杂应用、嵌入式系统、长期维护项目
 
-1. Add the actual source code or project scaffold.
-2. Update this README with the project goal, setup steps, and structure.
-3. Add tests and CI once the stack is chosen.
-4. Add a license if this repository will be shared publicly.
+## 示例应用
 
-## Status
+### 1. Electron 示例应用
 
-The repository is connected and ready for the first real implementation commit.
+**功能**：
+- 基本的窗口创建和管理
+- 应用菜单系统
+- 文件对话框
+- 主进程与渲染进程通信
+- 跨平台兼容性
+
+**运行方法**：
+```bash
+# 进入项目目录
+cd electron-demo
+
+# 安装依赖
+npm install
+
+# 启动应用
+npm start
+```
+
+**文件结构**：
+- `main.js` - 主进程代码
+- `preload.js` - 预加载脚本
+- `index.html` - 渲染进程界面
+- `package.json` - 项目配置
+
+### 2. Tauri 示例应用
+
+**功能**：
+- 基本的窗口创建和管理
+- 文件对话框
+- 主进程与渲染进程通信
+- 轻量级应用构建
+- 跨平台兼容性
+
+**运行方法**：
+```bash
+# 进入项目目录
+cd tauri-demo
+
+# 安装依赖
+npm install
+
+# 启动开发服务器
+npm run dev
+
+# 构建应用
+npm run tauri build
+```
+
+**文件结构**：
+- `src/` - 前端代码
+- `src-tauri/` - Rust 后端代码
+- `package.json` - 项目配置
+- `tauri.conf.json` - Tauri 配置
+
+### 3. Qt 示例应用
+
+**功能**：
+- 基本的窗口创建和管理
+- 应用菜单系统
+- 文件对话框
+- 信号与槽机制
+- 跨平台兼容性
+- 原生性能
+
+**运行方法**：
+```bash
+# 进入项目目录
+cd qt-demo
+
+# 创建构建目录
+mkdir build && cd build
+
+# 配置项目
+cmake ..
+
+# 构建项目
+cmake --build .
+
+# 运行应用
+./qt-demo
+```
+
+**文件结构**：
+- `main.cpp` - 应用入口
+- `mainwindow.h` - 主窗口头文件
+- `mainwindow.cpp` - 主窗口实现
+- `mainwindow.ui` - 界面设计文件
+- `CMakeLists.txt` - 构建配置
+
+## 技术选型建议
+
+### 选择 Electron 如果：
+- 你有 Web 开发经验
+- 需要快速开发和部署
+- 对应用体积和性能要求不高
+- 需要利用丰富的 npm 生态
+
+### 选择 Tauri 如果：
+- 你关注应用体积和性能
+- 对安全性有较高要求
+- 愿意学习 Rust 语言
+- 希望构建现代、轻量级的桌面应用
+
+### 选择 Qt 如果：
+- 你有 C++ 开发经验
+- 对性能和原生体验有高要求
+- 需要构建复杂的企业级应用
+- 应用需要长期维护和扩展
+- 目标平台包括嵌入式系统
+
+## 总结
+
+三种技术各有优缺点，选择合适的技术栈取决于项目的具体需求、团队的技术背景以及对性能、体积等因素的权衡。
+
+- **Electron**：最成熟的 Web 技术桌面化方案，适合快速开发
+- **Tauri**：新兴的轻量级方案，适合对性能和体积有要求的应用
+- **Qt**：传统的原生开发方案，适合对性能和原生体验有高要求的应用
+
+通过本项目的示例应用，你可以了解三种技术的基本用法和特点，为你的下一个桌面应用项目选择合适的技术栈。

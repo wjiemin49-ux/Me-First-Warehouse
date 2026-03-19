@@ -1,0 +1,17 @@
+{
+  "targets": [
+    {
+      "path": "logs",
+      "patterns": ["*.log"],
+      "older_than_days": 7,
+      "recursive": true
+    },
+    {
+      "path": "tmp",
+      "patterns": ["*"],
+      "older_than_hours": 24,
+      "recursive": true
+    }
+  ]
+}
+

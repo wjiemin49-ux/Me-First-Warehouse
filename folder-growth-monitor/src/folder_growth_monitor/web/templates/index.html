@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folder Growth Monitor</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f172a; color: #e2e8f0; min-height: 100vh; }
+  .header { background: #1e293b; border-bottom: 1px solid #334155; padding: 16px 24px; display: flex; align-items: center; gap: 12px; }
+  .header h1 { font-size: 1.25rem; font-weight: 600; color: #f1f5f9; }
+  .header .subtitle { color: #64748b; font-size: 0.875rem; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 24px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+  .card { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; }
+  .card .label { color: #64748b; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .card .value { font-size: 1.75rem; font-weight: 700; color: #f1f5f9; }
+  .card .sub { color: #64748b; font-size: 0.75rem; margin-top: 4px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .panel { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 20px; }
+  .panel h2 { font-size: 0.875rem; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 16px; }
+  .chart-wrap { position: relative; height: 220px; }
+  .chart-wrap-sm { position: relative; height: 180px; }
+  select, button { background: #0f172a; border: 1px solid #334155; color: #e2e8f0; padding: 6px 12px; border-radius: 6px; font-size: 0.875rem; cursor: pointer; }
+  select:focus, button:focus { outline: 2px solid #3b82f6; outline-offset: 2px; }
+  button:hover { background: #1e293b; }
+  .controls { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .controls label { color: #64748b; font-size: 0.875rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+  thead th { text-align: left; color: #64748b; font-weight: 500; padding: 8px 12px; border-bottom: 1px solid #334155; }
+  tbody tr { border-bottom: 1px solid #1e293b; cursor: pointer; transition: background 0.15s; }
+  tbody tr:hover { background: #0f172a; }
+  tbody td { padding: 10px 12px; color: #cbd5e1; }
+  tbody td:first-child { color: #f1f5f9; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 9999px; font-size: 0.7rem; font-weight: 600; }
+  .badge-up { background: #14532d; color: #86efac; }
+  .badge-down { background: #450a0a; color: #fca5a5; }
+  .badge-stable { background: #1e3a5f; color: #93c5fd; }
+  .badge-high { background: #7c2d12; color: #fdba74; }
+  .badge-medium { background: #713f12; color: #fde68a; }
+  .empty { color: #475569; text-align: center; padding: 32px; font-size: 0.875rem; }
+  .tag { display: inline-block; background: #0f172a; border: 1px solid #334155; border-radius: 4px; padding: 2px 6px; font-size: 0.75rem; color: #94a3b8; margin: 2px; }
+  @media (max-width: 900px) { .grid2, .grid3 { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>
+  <div>
+    <h1>Folder Growth Monitor</h1>
+    <div class="subtitle">文件夹增长监控仪表板</div>
+  </div>
+  <div style="margin-left:auto;">
+    <button onclick="loadAll()">&#8635; 刷新</button>
+  </div>
+</div>
+
+<div class="container">
+  <!-- 概览卡片 -->
+  <div class="cards">
+    <div class="card"><div class="label">总扫描次数</div><div class="value" id="c-scans">-</div><div class="sub">最近30天</div></div>
+    <div class="card"><div class="label">总新增文件</div><div class="value" id="c-files">-</div><div class="sub">最近30天</div></div>
+    <div class="card"><div class="label">总新增体积</div><div class="value" id="c-size">-</div><div class="sub">最近30天</div></div>
+    <div class="card"><div class="label">监控文件夹</div><div class="value" id="c-folders">-</div><div class="sub">最近30天</div></div>
+    <div class="card"><div class="label">最近扫描</div><div class="value" style="font-size:1rem" id="c-latest">-</div><div class="sub">&nbsp;</div></div>
+  </div>
+
+  <!-- 扫描历史趋势 + 选中详情 -->
+  <div class="grid2">
+    <div class="panel">
+      <h2>扫描历史趋势</h2>
+      <div class="chart-wrap"><canvas id="chart-scan-history"></canvas></div>
+    </div>
+    <div class="panel">
+      <h2>文件类型分布 <span id="detail-scan-label" style="color:#475569;font-weight:400"></span></h2>
+      <div class="chart-wrap"><canvas id="chart-file-types"></canvas></div>
+    </div>
+  </div>
+
+  <!-- 扫描历史列表 -->
+  <div class="panel" style="margin-bottom:16px">
+    <h2>扫描记录</h2>
+    <div style="overflow-x:auto">
+      <table>
+        <thead><tr><th>ID</th><th>扫描时间</th><th>扫描目录数</th><th>新增文件</th><th>新增体积</th><th>修改文件</th></tr></thead>
+        <tbody id="scan-table"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 文件夹增长 + 大文件 -->
+  <div class="grid2" id="scan-detail-section" style="display:none">
+    <div class="panel">
+      <h2>文件夹增长详情</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>文件夹</th><th>新增文件</th><th>新增体积</th><th>评分</th></tr></thead>
+          <tbody id="folder-table"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>大文件列表</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>文件名</th><th>大小</th><th>创建时间</th></tr></thead>
+          <tbody id="largefile-table"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 趋势分析 -->
+  <div class="panel" style="margin-bottom:16px">
+    <h2>趋势分析</h2>
+    <div class="controls">
+      <label>文件夹：</label>
+      <select id="folder-select" onchange="loadTrend()"><option value="">-- 请选择 --</option></select>
+      <label>天数：</label>
+      <select id="days-select" onchange="loadTrend()">
+        <option value="7">7天</option>
+        <option value="14" selected>14天</option>
+        <option value="30">30天</option>
+      </select>
+    </div>
+    <div class="grid3">
+      <div>
+        <div style="color:#64748b;font-size:0.75rem;margin-bottom:8px">每日增长趋势</div>
+        <div class="chart-wrap-sm"><canvas id="chart-trend"></canvas></div>
+      </div>
+      <div>
+        <div style="color:#64748b;font-size:0.75rem;margin-bottom:8px">按小时活动分布</div>
+        <div class="chart-wrap-sm"><canvas id="chart-hourly"></canvas></div>
+      </div>
+      <div>
+        <div style="color:#64748b;font-size:0.75rem;margin-bottom:8px">按星期活动分布</div>
+        <div class="chart-wrap-sm"><canvas id="chart-weekday"></canvas></div>
+      </div>
+    </div>
+    <div id="anomaly-section" style="margin-top:12px;display:none">
+      <div style="color:#64748b;font-size:0.75rem;margin-bottom:8px">异常检测</div>
+      <div id="anomaly-list"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WEEKDAY = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const COLORS = ['#3b82f6','#10b981','#f59e0b','#ef4444','#8b5cf6','#06b6d4','#f97316','#ec4899','#84cc16','#6366f1'];
+
+function fmtSize(bytes) {
+  if (bytes === 0) return '0 B';
+  const k = 1024, sizes = ['B','KB','MB','GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return (bytes / Math.pow(k, i)).toFixed(1) + ' ' + sizes[i];
+}
+function fmtDate(iso) {
+  if (!iso) return '-';
+  return iso.replace('T', ' ').substring(0, 16);
+}
+
+// Chart instances
+const charts = {};
+
+function mkChart(id, type, data, options = {}) {
+  const ctx = document.getElementById(id).getContext('2d');
+  if (charts[id]) charts[id].destroy();
+  charts[id] = new Chart(ctx, {
+    type,
+    data,
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+      scales: type !== 'pie' && type !== 'doughnut' && type !== 'radar' ? {
+        x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b' } },
+        y: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#334155' } }
+      } : {},
+      ...options
+    }
+  });
+}
+
+async function loadAll() {
+  await Promise.all([loadSummary(), loadScanHistory(), loadFolders()]);
+}
+
+async function loadSummary() {
+  const d = await fetch('/api/summary').then(r => r.json());
+  document.getElementById('c-scans').textContent = d.total_scans;
+  document.getElementById('c-files').textContent = d.total_new_files;
+  document.getElementById('c-size').textContent = fmtSize(d.total_new_size);
+  document.getElementById('c-folders').textContent = d.folders_monitored;
+  document.getElementById('c-latest').textContent = fmtDate(d.latest_scan_time);
+}
+
+async function loadScanHistory() {
+  const d = await fetch('/api/scans?days=30').then(r => r.json());
+  const scans = d.scans;
+
+  // 历史趋势折线图
+  const labels = scans.map(s => s.scan_time.substring(5, 16));
+  const newFiles = scans.map(s => s.total_new_files);
+  mkChart('chart-scan-history', 'line', {
+    labels,
+    datasets: [{
+      label: '新增文件数',
+      data: newFiles,
+      borderColor: '#3b82f6',
+      backgroundColor: 'rgba(59,130,246,0.1)',
+      fill: true,
+      tension: 0.3,
+      pointRadius: 3,
+    }]
+  });
+
+  // 扫描记录表格
+  const tbody = document.getElementById('scan-table');
+  tbody.innerHTML = '';
+  for (const s of scans) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>#${s.id}</td>
+      <td>${fmtDate(s.scan_time)}</td>
+      <td>${s.total_folders_scanned}</td>
+      <td>${s.total_new_files}</td>
+      <td>${fmtSize(s.total_new_size)}</td>
+      <td>${s.total_modified_files}</td>
+    `;
+    tr.onclick = () => loadScanDetail(s.id, s.scan_time);
+    tbody.appendChild(tr);
+  }
+
+  // 默认加载最新一条详情
+  if (scans.length > 0) loadScanDetail(scans[0].id, scans[0].scan_time);
+}
+
+async function loadScanDetail(scanId, scanTime) {
+  document.getElementById('detail-scan-label').textContent = `— #${scanId} ${fmtDate(scanTime)}`;
+  document.getElementById('scan-detail-section').style.display = 'grid';
+
+  const [ft, lf, fg] = await Promise.all([
+    fetch(`/api/scans/${scanId}/file-types`).then(r => r.json()),
+    fetch(`/api/scans/${scanId}/large-files?limit=10`).then(r => r.json()),
+    fetch(`/api/scans/${scanId}/folders`).then(r => r.json()),
+  ]);
+
+  // 文件类型分布饼图
+  const ftData = ft.file_types || [];
+  if (ftData.length > 0) {
+    mkChart('chart-file-types', 'doughnut', {
+      labels: ftData.map(f => f.file_extension || '(无扩展名)'),
+      datasets: [{
+        data: ftData.map(f => f.file_count),
+        backgroundColor: COLORS,
+        borderWidth: 1,
+        borderColor: '#1e293b',
+      }]
+    }, { plugins: { legend: { position: 'right', labels: { color: '#94a3b8', font: { size: 11 } } } } });
+  } else {
+    document.getElementById('chart-file-types').getContext('2d').clearRect(0,0,9999,9999);
+    if (charts['chart-file-types']) { charts['chart-file-types'].destroy(); delete charts['chart-file-types']; }
+  }
+
+  // 文件夹增长表格
+  const fTbody = document.getElementById('folder-table');
+  fTbody.innerHTML = '';
+  for (const f of (fg.folders || [])) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td title="${f.folder_path}">${f.folder_name}</td>
+      <td>${f.new_file_count}</td>
+      <td>${fmtSize(f.new_file_size)}</td>
+      <td>${(f.composite_score || 0).toFixed(1)}</td>
+    `;
+    fTbody.appendChild(tr);
+  }
+  if (!fg.folders || fg.folders.length === 0) {
+    fTbody.innerHTML = '<tr><td colspan="4" class="empty">无增长数据</td></tr>';
+  }
+
+  // 大文件表格
+  const lTbody = document.getElementById('largefile-table');
+  lTbody.innerHTML = '';
+  for (const f of (lf.large_files || [])) {
+    const name = f.file_path.split(/[\\/]/).pop();
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td title="${f.file_path}">${name}</td>
+      <td>${fmtSize(f.file_size)}</td>
+      <td>${fmtDate(f.created_time)}</td>
+    `;
+    lTbody.appendChild(tr);
+  }
+  if (!lf.large_files || lf.large_files.length === 0) {
+    lTbody.innerHTML = '<tr><td colspan="3" class="empty">无大文件</td></tr>';
+  }
+}
+
+async function loadFolders() {
+  const d = await fetch('/api/folders?days=30').then(r => r.json());
+  const sel = document.getElementById('folder-select');
+  sel.innerHTML = '<option value="">-- 请选择 --</option>';
+  for (const f of (d.folders || [])) {
+    const opt = document.createElement('option');
+    opt.value = f;
+    opt.textContent = f.split(/[\\/]/).pop() + ' (' + f + ')';
+    sel.appendChild(opt);
+  }
+  // 自动选中第一个
+  if (d.folders && d.folders.length > 0) {
+    sel.value = d.folders[0];
+    loadTrend();
+  }
+}
+
+async function loadTrend() {
+  const folderPath = document.getElementById('folder-select').value;
+  const days = document.getElementById('days-select').value;
+  if (!folderPath) return;
+
+  const params = new URLSearchParams({ folder_path: folderPath, days });
+  const d = await fetch('/api/folders/trend?' + params).then(r => r.json());
+
+  // 每日增长趋势折线图（含异常散点）
+  const dailyLabels = (d.daily_heatmap || []).map(p => p.date.substring(5));
+  const dailyCounts = (d.daily_heatmap || []).map(p => p.count);
+  const anomalyDates = new Set((d.anomalies || []).map(a => a.date.substring(5)));
+  const anomalyPoints = dailyCounts.map((v, i) => anomalyDates.has(dailyLabels[i]) ? v : null);
+
+  mkChart('chart-trend', 'line', {
+    labels: dailyLabels,
+    datasets: [
+      {
+        label: '新增文件',
+        data: dailyCounts,
+        borderColor: '#3b82f6',
+        backgroundColor: 'rgba(59,130,246,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 2,
+      },
+      {
+        label: '异常',
+        data: anomalyPoints,
+        type: 'scatter',
+        pointStyle: 'triangle',
+        pointRadius: 7,
+        backgroundColor: '#ef4444',
+        borderColor: '#ef4444',
+      }
+    ]
+  });
+
+  // 小时分布柱状图
+  mkChart('chart-hourly', 'bar', {
+    labels: Array.from({length: 24}, (_, i) => i + 'h'),
+    datasets: [{
+      label: '文件数',
+      data: d.hourly_heatmap || [],
+      backgroundColor: 'rgba(16,185,129,0.7)',
+      borderRadius: 2,
+    }]
+  });
+
+  // 星期分布雷达图
+  mkChart('chart-weekday', 'radar', {
+    labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+    datasets: [{
+      label: '文件数',
+      data: d.weekday_heatmap || [],
+      backgroundColor: 'rgba(139,92,246,0.2)',
+      borderColor: '#8b5cf6',
+      pointBackgroundColor: '#8b5cf6',
+    }]
+  }, {
+    scales: {
+      r: {
+        ticks: { color: '#64748b', font: { size: 9 }, backdropColor: 'transparent' },
+        grid: { color: '#334155' },
+        pointLabels: { color: '#94a3b8', font: { size: 10 } }
+      }
+    }
+  });
+
+  // 异常列表
+  const anomalySection = document.getElementById('anomaly-section');
+  const anomalyList = document.getElementById('anomaly-list');
+  if (d.anomalies && d.anomalies.length > 0) {
+    anomalySection.style.display = 'block';
+    anomalyList.innerHTML = d.anomalies.map(a => `
+      <span class="tag">
+        <span class="badge badge-${a.severity === 'high' ? 'high' : 'medium'}">${a.severity}</span>
+        ${a.date} — ${a.value} 个文件（正常范围: ${a.expected_min.toFixed(1)}–${a.expected_max.toFixed(1)}）
+      </span>
+    `).join('');
+  } else {
+    anomalySection.style.display = 'none';
+  }
+}
+
+// 初始加载
+loadAll();
+</script>
+</body>
+</html>

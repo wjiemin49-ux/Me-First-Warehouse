@@ -1,0 +1,17 @@
+{
+  "name": "electron-demo",
+  "version": "1.0.0",
+  "description": "Electron 示例应用",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "electron"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^28.0.0"
+  }
+}

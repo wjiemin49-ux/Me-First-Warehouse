@@ -1,0 +1,3 @@
+display_name: Self Growth Daily Briefing
+short_description: Generate, send, or schedule the local self-growth daily briefing workflow.
+default_prompt: Preview or run the self-growth daily briefing from this repository, then report the result clearly.

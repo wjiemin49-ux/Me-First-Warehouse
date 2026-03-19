@@ -1,0 +1,17 @@
+[
+  {
+    "seed_title": "差一秒天亮",
+    "lyrics_prompt": "写一首适合短视频传播的中文流行电子歌曲，主题是凌晨城市里刚要放下一个人又忍不住回头。歌词要口语化、简洁、上口，有清晰结构标签，控制成歌时长大约1.5到2.5分钟。请使用2段主歌、1段预副歌、2段副歌、1段桥段和结尾，总体不少于22行。副歌的核心记忆句围绕“差一秒天亮”，要有重复感，适合剪短视频时直接截副歌。",
+    "music_prompt": "Mandopop, emotional electro pop, female vocal, 104 BPM, strong kick and snare, neon city night drive, earworm chorus, short-video friendly, modern polished production, dynamic drums, catchy hook"
+  },
+  {
+    "seed_title": "心动开拍",
+    "lyrics_prompt": "写一首适合抖音热门BGM的中文甜感流行歌，主题是喜欢的人一靠近就像镜头开拍，空气都变亮。歌词要年轻、轻盈、好记，避免复杂意象，多用短句，控制成歌时长约1.5到2.5分钟。请使用2段主歌、1段预副歌、2段副歌和结尾，总体不少于22行。副歌必须有高重复的记忆点，适合恋爱感、变装、出游、日常vlog短视频。",
+    "music_prompt": "Mandopop, dance pop, sweet female vocal, 116 BPM, bright synths, punchy drums, playful electronic pop, clean bass, glossy modern production, instant catchy chorus, short-video viral vibe"
+  },
+  {
+    "seed_title": "风会替我说",
+    "lyrics_prompt": "写一首适合短视频情绪剪辑的中文现代流行歌，主题是嘴上没说的话让风替我说出口，整体治愈里带一点遗憾。歌词要简洁、真诚、容易共鸣，不要过于文绉绉，控制成歌时长约1.5到2.5分钟。请使用2段主歌、1段预副歌、2段副歌、1段桥段和结尾，总体不少于22行。副歌要有明显情绪抬升和易传播的短句。",
+    "music_prompt": "Mandopop, emotional pop with electronic elements, female vocal, 98 BPM, airy pads, crisp drums, heartfelt chorus, modern radio pop, short-video friendly, uplifting but wistful, memorable hook"
+  }
+]

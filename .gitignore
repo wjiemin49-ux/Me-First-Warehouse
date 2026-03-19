@@ -6,6 +6,7 @@ Desktop.ini
 # Editor settings
 .vscode/
 .idea/
+.fleet/
 
 # Logs
 *.log
@@ -22,11 +23,33 @@ pnpm-debug.log*
 # Common dependency and build outputs
 node_modules/
 dist/
+dist-electron/
 build/
 coverage/
+out/
+.turbo/
+tmp/
+temp/
 
 # Python
 .venv/
 venv/
 __pycache__/
 *.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Runtime and generated project data
+logs/
+output/
+runs/
+runtime/
+*.db
+*.sqlite
+*.sqlite3
+
+# Local tooling noise
+gcm-diagnose.log
+.tmp-clawhub-vet/

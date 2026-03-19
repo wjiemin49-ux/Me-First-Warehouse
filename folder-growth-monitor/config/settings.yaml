@@ -1,0 +1,113 @@
+# 扫描配置
+scan:
+  # 要扫描的目标目录列表
+  target_directories:
+    - "D:\\me\\脚本"
+
+  # 是否递归扫描子目录
+  recursive: false
+
+  # 递归扫描的最大深度（recursive=true 时生效）
+  max_depth: 1
+
+# 忽略规则
+ignore:
+  # 忽略的目录名称
+  directories:
+    - ".git"
+    - "node_modules"
+    - "__pycache__"
+    - ".venv"
+    - "venv"
+    - "dist"
+    - "build"
+    - "temp"
+    - "logs"
+    - ".idea"
+    - ".vscode"
+
+  # 忽略的文件扩展名
+  file_extensions:
+    - ".tmp"
+    - ".log"
+    - ".cache"
+    - ".pyc"
+
+  # 是否忽略隐藏文件（以 . 开头的文件）
+  hidden_files: true
+
+# 时间配置
+time:
+  # 时间模式: "today" (今天 00:00 到现在) | "last_24h" (最近 24 小时)
+  mode: "today"
+
+  # 时区
+  timezone: "Asia/Shanghai"
+
+# 分析配置
+analysis:
+  # 要统计的指标
+  metrics:
+    - "new_file_count"        # 新增文件数
+    - "new_file_size"         # 新增文件体积
+    - "modified_file_count"   # 修改文件数
+
+# 排序配置
+ranking:
+  # 排序方式: "new_file_count" | "new_file_size" | "modified_file_count" | "composite"
+  sort_by: "composite"
+
+  # 综合评分权重（仅在 sort_by="composite" 时生效）
+  composite_weights:
+    new_file_count: 0.5       # 新增文件数权重
+    new_file_size: 0.3        # 新增文件体积权重
+    modified_file_count: 0.2  # 修改文件数权重
+
+  # 显示前 N 个文件夹
+  top_n: 10
+
+# 输出配置
+output:
+  # 输出格式: "console" | "markdown" | "text"
+  formats:
+    - "console"
+    - "markdown"
+
+  # 输出目录
+  output_dir: "./output"
+
+  # 文件名模板（{date} 会被替换为日期）
+  filename_template: "folder_growth_{date}.md"
+
+# 日志配置
+logging:
+  # 日志级别: "DEBUG" | "INFO" | "WARNING" | "ERROR"
+  level: "INFO"
+
+  # 日志目录
+  log_dir: "./logs"
+
+  # 日志文件名
+  log_file: "folder_monitor.log"
+
+# 数据库配置
+database:
+  # 是否启用数据库持久化（特性开关）
+  enabled: true
+
+  # 数据库文件路径
+  db_path: "./data/folder_growth.db"
+
+  # 自动清理旧数据（天数）
+  retention_days: 90
+
+# 性能优化配置
+performance:
+  # 是否启用并行扫描
+  parallel_scan: false
+
+  # 并行工作线程数（0 表示自动检测 CPU 核心数）
+  max_workers: 0
+
+  # 大文件阈值（MB）
+  large_file_threshold_mb: 100

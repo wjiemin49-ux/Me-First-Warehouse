@@ -1,0 +1,56 @@
+{
+  "id": "sc-demo-flaky-python",
+  "name": "Flaky Restart Demo",
+  "description": "启动后定期崩溃，用于演示自动重启与熔断",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "python",
+  "entry": {
+    "command": "python",
+    "args": [
+      "main.py"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      }
+    ]
+  },
+  "display": {
+    "category": "故障演示",
+    "tags": [
+      "demo",
+      "python",
+      "flaky",
+      "fault"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": true,
+    "allowVisible": true,
+    "restartPolicy": "on-crash",
+    "restartMaxRetries": 3,
+    "cooldownMinutes": 10
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ]
+}

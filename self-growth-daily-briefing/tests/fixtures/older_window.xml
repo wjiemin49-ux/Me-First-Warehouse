@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Older Window Feed</title>
+    <item>
+      <title>Small Habits Matter More Than Motivation</title>
+      <link>https://example.com/small-habits-matter</link>
+      <description><![CDATA[Self-improvement becomes sustainable when habits lower the friction of action.]]></description>
+      <pubDate>Tue, 10 Mar 2026 20:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Purpose Feels Clearer After Honest Reflection</title>
+      <link>https://example.com/purpose-reflection</link>
+      <description><![CDATA[Purpose and reflection can reduce burnout and improve attention.]]></description>
+      <pubDate>Tue, 10 Mar 2026 21:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

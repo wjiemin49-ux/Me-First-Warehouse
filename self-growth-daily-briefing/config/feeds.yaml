@@ -1,0 +1,66 @@
+feeds:
+  - name: Tiny Buddha
+    kind: rss
+    url: https://tinybuddha.com/feed/
+    tags: [self-growth, mindfulness, resilience]
+    trend_weight: 1.0
+
+  - name: Zen Habits (Google News)
+    kind: rss
+    url: https://news.google.com/rss/search?q=site%3Azenhabits.net+habits+OR+focus+OR+mindfulness&hl=en-US&gl=US&ceid=US%3Aen
+    tags: [habits, mindfulness, focus]
+    trend_weight: 1.05
+
+  - name: Ness Labs
+    kind: rss
+    url: https://nesslabs.com/feed
+    tags: [mental-models, productivity, self-improvement]
+    trend_weight: 1.0
+
+  - name: Mark Manson
+    kind: rss
+    url: https://markmanson.net/feed
+    tags: [personal-growth, purpose, mindset]
+    trend_weight: 1.0
+
+  - name: Greater Good
+    kind: rss
+    url: https://greatergood.berkeley.edu/rss
+    tags: [well-being, relationships, resilience]
+    trend_weight: 1.0
+
+  - name: Psychology Today (Google News)
+    kind: rss
+    url: https://news.google.com/rss/search?q=site%3Apsychologytoday.com+self-improvement+OR+resilience+OR+burnout&hl=en-US&gl=US&ceid=US%3Aen
+    tags: [psychology, self-improvement, burnout]
+    trend_weight: 1.05
+
+  - name: James Clear (Google News)
+    kind: rss
+    url: https://news.google.com/rss/search?q=site%3Ajamesclear.com+habits+OR+focus+OR+self-improvement&hl=en-US&gl=US&ceid=US%3Aen
+    tags: [habits, discipline, focus]
+    trend_weight: 1.05
+
+  - name: The Marginalian
+    kind: rss
+    url: https://www.themarginalian.org/feed/
+    tags: [reflection, meaning, attention]
+    trend_weight: 1.0
+
+  - name: Self-Growth Trend Radar
+    kind: rss
+    url: https://news.google.com/rss/search?q=self-growth+OR+personal+growth+OR+self-improvement+OR+attention+OR+burnout&hl=en-US&gl=US&ceid=US%3Aen
+    tags: [trend, self-growth, self-improvement]
+    trend_weight: 1.2
+
+  - name: Reddit Self Improvement
+    kind: reddit_json
+    url: https://www.reddit.com/r/selfimprovement/top.json?limit=20&t=day
+    tags: [self-improvement, motivation, discipline]
+    trend_weight: 1.15
+
+  - name: Reddit Get Disciplined
+    kind: reddit_json
+    url: https://www.reddit.com/r/getdisciplined/top.json?limit=20&t=day
+    tags: [discipline, habits, focus]
+    trend_weight: 1.15

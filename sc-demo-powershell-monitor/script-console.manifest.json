@@ -1,0 +1,68 @@
+{
+  "id": "sc-demo-powershell-monitor",
+  "name": "PowerShell Monitor Demo",
+  "description": "PowerShell 守护脚本示例",
+  "version": "0.1.0",
+  "author": "Script Console",
+  "type": "powershell",
+  "entry": {
+    "command": "powershell",
+    "args": [
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "run.ps1"
+    ],
+    "cwd": ".",
+    "shell": false
+  },
+  "stop": {
+    "mode": "process",
+    "timeoutMs": 10000
+  },
+  "logging": {
+    "filePath": "logs/app.log",
+    "captureStdout": true,
+    "captureStderr": true,
+    "maxTailLines": 500
+  },
+  "health": {
+    "graceSeconds": 20,
+    "probes": [
+      {
+        "type": "process",
+        "severity": "required"
+      },
+      {
+        "type": "heartbeat-file",
+        "severity": "advisory",
+        "path": "runtime/heartbeat.json",
+        "staleAfterSeconds": 45
+      },
+      {
+        "type": "log-update",
+        "severity": "advisory",
+        "path": "logs/app.log",
+        "staleAfterSeconds": 120
+      }
+    ]
+  },
+  "display": {
+    "category": "运维脚本",
+    "tags": [
+      "demo",
+      "powershell",
+      "ops"
+    ],
+    "icon": "assets/icon.txt"
+  },
+  "policy": {
+    "allowAutoStart": false,
+    "allowVisible": true,
+    "restartPolicy": "off"
+  },
+  "capabilities": [
+    "heartbeat-file",
+    "log-file"
+  ]
+}
