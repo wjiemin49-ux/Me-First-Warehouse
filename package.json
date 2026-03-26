@@ -1,0 +1,24 @@
+{
+  "name": "focusflow",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@10.31.0",
+  "scripts": {
+    "lint": "pnpm -r --if-present lint && pnpm exec eslint apps/server/src apps/web/src playwright.config.ts e2e --ext .ts,.tsx --max-warnings=0",
+    "test": "pnpm -r --if-present test",
+    "build": "pnpm -r --if-present build",
+    "test:e2e": "pnpm exec playwright test",
+    "test:e2e:list": "pnpm exec playwright test --list"
+  },
+  "devDependencies": {
+    "@typescript-eslint/parser": "^8.46.1",
+    "@playwright/test": "^1.52.0",
+    "@types/node": "^22.14.1",
+    "eslint": "^9.23.0",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@prisma/client", "@prisma/engines", "prisma", "esbuild"]
+  }
+}

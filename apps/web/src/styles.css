@@ -1,0 +1,312 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(180deg, #f5f7fb 0%, #eef2ff 100%);
+  color: #10203d;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.auth-card {
+  width: min(100%, 28rem);
+  border: 1px solid #d8def0;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(16, 32, 61, 0.08);
+  padding: 1.25rem;
+}
+
+.auth-card h1 {
+  margin: 0 0 0.35rem;
+  font-size: 1.5rem;
+}
+
+.auth-card p {
+  margin-top: 0;
+  color: #32456d;
+}
+
+.auth-form {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.auth-form input,
+.auth-form button {
+  min-height: 2.5rem;
+  border-radius: 0.55rem;
+  border: 1px solid #bcc8e8;
+  padding: 0.5rem 0.75rem;
+}
+
+.auth-form button {
+  border: none;
+  background: #0f60ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.link-button {
+  margin-top: 0.75rem;
+  border: none;
+  background: transparent;
+  color: #0f60ff;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.error-banner {
+  border: 1px solid #f5b5b5;
+  background: #feecec;
+  color: #7a1f1f;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  margin: 0.6rem 0;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.app-header {
+  padding: 0.9rem 1rem;
+  background: #10203d;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.app-header p {
+  margin: 0.15rem 0 0;
+  color: #c7d5f8;
+}
+
+.app-header button {
+  border: 1px solid #ffffff50;
+  border-radius: 0.5rem;
+  background: #ffffff14;
+  color: #fff;
+  min-height: 2.25rem;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+}
+
+.app-body {
+  padding: 0.85rem;
+  display: grid;
+  grid-template-columns: minmax(16rem, 20rem) minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.project-sidebar,
+.dashboard-main {
+  border: 1px solid #d8def0;
+  border-radius: 0.85rem;
+  background: #fff;
+}
+
+.project-sidebar {
+  padding: 0.8rem;
+}
+
+.project-create-form {
+  margin-bottom: 0.8rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.project-create-form input,
+.project-create-form button,
+.project-list button,
+.task-form input,
+.task-form textarea,
+.task-form button,
+.task-filters input,
+.task-filters select,
+.task-edit-form input,
+.task-edit-form textarea,
+.task-edit-form button {
+  border: 1px solid #bcc8e8;
+  border-radius: 0.45rem;
+  padding: 0.4rem 0.55rem;
+}
+
+.project-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.project-list li {
+  border: 1px solid #d8def0;
+  border-radius: 0.55rem;
+  padding: 0.45rem;
+}
+
+.project-list li.selected {
+  border-color: #0f60ff;
+  box-shadow: inset 0 0 0 1px #0f60ff;
+}
+
+.project-select {
+  border: none;
+  background: transparent;
+  padding: 0.2rem 0;
+  text-align: left;
+  width: 100%;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.dashboard-main {
+  padding: 0.8rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.dashboard-top h2 {
+  margin: 0 0 0.5rem;
+}
+
+.task-form,
+.task-filters {
+  display: grid;
+  gap: 0.45rem;
+  margin-bottom: 0.7rem;
+}
+
+.task-filters {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: end;
+}
+
+.checkbox-field {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.task-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.board-column {
+  border: 1px solid #d8def0;
+  border-radius: 0.65rem;
+  padding: 0.55rem;
+  background: #fafcff;
+}
+
+.board-column h3 {
+  margin: 0 0 0.6rem;
+}
+
+.board-column ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.task-card {
+  border: 1px solid #d8def0;
+  border-radius: 0.55rem;
+  background: #fff;
+  padding: 0.5rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.task-card h4,
+.task-card p {
+  margin: 0;
+}
+
+.task-due {
+  color: #32456d;
+  font-size: 0.9rem;
+}
+
+.task-edit-form {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.empty-state {
+  border: 1px dashed #bcc8e8;
+  border-radius: 0.6rem;
+  padding: 1rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 960px) {
+  .app-body {
+    grid-template-columns: 1fr;
+  }
+
+  .task-board {
+    grid-template-columns: 1fr;
+  }
+
+  .task-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .auth-card {
+    border-radius: 0.7rem;
+    padding: 0.9rem;
+  }
+
+  .app-body {
+    padding: 0.6rem;
+  }
+}
